@@ -34,17 +34,6 @@ const ProductList: React.FC = () => {
     );
   }, [colorFilter, products]);
 
-  // useEffect(() => {
-  //   // Update total when basket changes
-  //   console.log("basket ", basket);
-  //   setTotal(
-  //     Object.values(basket).reduce((acc, qty) => {
-  //       console.log("acc ", acc)
-  //       return acc + qty
-  //     }, 0)
-  //   );
-  // }, [basket]);
-
   const handleAddToCart = (product: Product) => {
     const productId = product.id;
     setBasket({
@@ -84,13 +73,16 @@ const ProductList: React.FC = () => {
       <h1 className="mb-4">Product Listings</h1>
 
       {/* Color Filter */}
-      <select className="form-select mb-4" onChange={(e) => setColorFilter(e.target.value)}>
+      <select
+        data-testid="color-filter"
+        className="form-select mb-4"
+        onChange={(e) => setColorFilter(e.target.value)}>
         <option value="">All Colors</option>
-        {availableColors.map(color => <option key={color} value={color}>{color}</option>)}
+        {availableColors.map(color => <option data-testid={color} key={color} value={color}>{color}</option>)}
       </select>
 
       {/* Product Listings */}
-      <ul className="list-group">
+      <ul className="list-group" id='products-list'>
         {filteredProducts.map(product => <BasketItem
           key={product.id}
           product={product}
@@ -102,7 +94,7 @@ const ProductList: React.FC = () => {
       </ul>
 
       {/* Total */}
-      <p className="mt-4">Total: ${total}</p>
+      <p data-testid="total" className="mt-4">Total: ${total}</p>
     </div>
   );
 };

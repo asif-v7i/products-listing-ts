@@ -5,7 +5,7 @@ const BasketItem = (props: any) => {
   const { product, basket, handleAddToCart, handleReduceQuantity, handleRemoveFromBasket } = props;
 
   return (
-    <div key={product.id} className="list-group-item d-flex align-items-center">
+    <div key={product.id} data-testid="product-item" className="list-group-item d-flex align-items-center">
       <div className="basket-item-container">
         <div className="basket-item-left-container">
           <div className="basket-item-image">
@@ -17,18 +17,29 @@ const BasketItem = (props: any) => {
           </div>
         </div>
         <div className="basket-item-right-container">
-        <div className="basket-item-actions">
-          <div className="basket-item-quantity">
-            <button onClick={() => handleAddToCart(product)} className="btn btn-outline-primary">
-              <FaPlus />
-            </button>
-            <p className="basket-item-quantity-text">Qty: {basket[product.id] || 0}</p>
-            <button onClick={() => handleReduceQuantity(product)} className="btn btn-outline-primary">
-              <FaMinus />
-            </button>
+          <div className="basket-item-actions">
+            <div className="basket-item-quantity">
+              <button
+                data-testid={`add-button-${product.id}`}
+                onClick={() => handleAddToCart(product)}
+                className="btn btn-outline-primary">
+                <FaPlus />
+              </button>
+              <p
+                data-testid={`quantity-${product.id}`}
+                className="basket-item-quantity-text">Qty: {basket[product.id] || 0}</p>
+              <button
+                data-testid={`reduce-button-${product.id}`}
+                onClick={() => handleReduceQuantity(product)}
+                className="btn btn-outline-primary">
+                <FaMinus />
+              </button>
+            </div>
           </div>
-          </div>
-          <button onClick={() => handleRemoveFromBasket(product)} className="btn btn-danger">Remove</button>
+          <button
+            data-testid={`remove-button-${product.id}`}
+            onClick={() => handleRemoveFromBasket(product)}
+            className="btn btn-danger">Remove</button>
         </div>
       </div>
     </div>
