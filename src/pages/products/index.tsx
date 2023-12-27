@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchData } from '../../utils/api';
 import { Basket, Product } from '../../utils/dataTypes';
 import BasketItem from '../../components/basket-item';
+import { Container, Row, Col, Form, ListGroup, Card } from 'react-bootstrap';
 
 
 const ProductList: React.FC = () => {
@@ -69,33 +70,52 @@ const ProductList: React.FC = () => {
 
 
   return (
-    <div>
-      <h1 className="mb-4">Product Listings</h1>
+    <Container>
+      <Row>
+        <h1 className="mb-4">Product Listings</h1>
+        {/* Color Filter */}
+        <Form.Select
+          data-testid="color-filter"
+          className="mb-4"
+          onChange={(e) => setColorFilter(e.target.value)}
+        >
+          <option value="">All Colors</option>
+          {availableColors.map((color) => (
+            <option data-testid={color} key={color} value={color}>
+              {color}
+            </option>
+          ))}
+        </Form.Select>
+        <Card>
+          <Col>
+            {/* Product Listings */}
+            <ListGroup id="products-list">
+              {filteredProducts.map((product) => (
+                <BasketItem
+                  key={product.id}
+                  product={product}
+                  basket={basket}
+                  handleAddToCart={handleAddToCart}
+                  handleReduceQuantity={handleReduceQuantity}
+                  handleRemoveFromBasket={handleRemoveFromBasket}
+                />
+              ))}
+            </ListGroup>
 
-      {/* Color Filter */}
-      <select
-        data-testid="color-filter"
-        className="form-select mb-4"
-        onChange={(e) => setColorFilter(e.target.value)}>
-        <option value="">All Colors</option>
-        {availableColors.map(color => <option data-testid={color} key={color} value={color}>{color}</option>)}
-      </select>
+            {/* Total */}
 
-      {/* Product Listings */}
-      <ul className="list-group" id='products-list'>
-        {filteredProducts.map(product => <BasketItem
-          key={product.id}
-          product={product}
-          basket={basket}
-          handleAddToCart={handleAddToCart}
-          handleReduceQuantity={handleReduceQuantity}
-          handleRemoveFromBasket={handleRemoveFromBasket} />
-        )}
-      </ul>
+          </Col>
+          <Row className="justify-content-end">
+            <Col xs={12} className="mt-4">
+              <p data-testid="total" className="total-price text-end">
+                Total: ${total}
+              </p>
+            </Col>
+          </Row>
+        </Card>
+      </Row>
 
-      {/* Total */}
-      <p data-testid="total" className="mt-4">Total: ${total}</p>
-    </div>
+    </Container>
   );
 };
 

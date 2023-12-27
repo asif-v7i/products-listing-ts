@@ -1,11 +1,12 @@
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import PropTypes from 'prop-types';
+import { Card, Button } from 'react-bootstrap';
 
 const BasketItem = (props: any) => {
   const { product, basket, handleAddToCart, handleReduceQuantity, handleRemoveFromBasket } = props;
 
   return (
-    <div key={product.id} data-testid="product-item" className="list-group-item d-flex align-items-center">
+    <Card key={product.id} data-testid="product-item" className='basket-item'>
       <div className="basket-item-container">
         <div className="basket-item-left-container">
           <div className="basket-item-image">
@@ -17,32 +18,37 @@ const BasketItem = (props: any) => {
           </div>
         </div>
         <div className="basket-item-right-container">
-          <div className="basket-item-actions">
+          
             <div className="basket-item-quantity">
-              <button
+              <Button
                 data-testid={`add-button-${product.id}`}
                 onClick={() => handleAddToCart(product)}
-                className="btn btn-outline-primary">
+                variant="outline-primary"
+              >
                 <FaPlus />
-              </button>
-              <p
-                data-testid={`quantity-${product.id}`}
-                className="basket-item-quantity-text">Qty: {basket[product.id] || 0}</p>
-              <button
+              </Button>
+              <p data-testid={`quantity-${product.id}`} className="basket-item-quantity text">
+                Qty: {basket[product.id] || 0}
+              </p>
+              <Button
                 data-testid={`reduce-button-${product.id}`}
                 onClick={() => handleReduceQuantity(product)}
-                className="btn btn-outline-primary">
+                variant="outline-primary"
+              >
                 <FaMinus />
-              </button>
+              </Button>
             </div>
-          </div>
-          <button
+          
+          <Button
             data-testid={`remove-button-${product.id}`}
             onClick={() => handleRemoveFromBasket(product)}
-            className="btn btn-danger">Remove</button>
+            variant="danger"
+          >
+            Remove
+          </Button>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 
