@@ -18,27 +18,27 @@ const BasketItem = (props: any) => {
           </div>
         </div>
         <div className="basket-item-right-container">
-          
-            <div className="basket-item-quantity">
-              <Button
-                data-testid={`add-button-${product.id}`}
-                onClick={() => handleAddToCart(product)}
-                variant="outline-primary"
-              >
-                <FaPlus />
-              </Button>
-              <p data-testid={`quantity-${product.id}`} className="basket-item-quantity text">
-                Qty: {basket[product.id] || 0}
-              </p>
-              <Button
-                data-testid={`reduce-button-${product.id}`}
-                onClick={() => handleReduceQuantity(product)}
-                variant="outline-primary"
-              >
-                <FaMinus />
-              </Button>
-            </div>
-          
+
+          <div className="basket-item-quantity">
+            <Button
+              data-testid={`reduce-button-${product.id}`}
+              onClick={() => handleReduceQuantity(product)}
+              variant="outline-primary"
+            >
+              <FaMinus />
+            </Button>
+            <p data-testid={`quantity-${product.id}`} className="basket-item-quantity text">
+              Qty: {basket[product.id] || 0}
+            </p>
+            <Button
+              data-testid={`add-button-${product.id}`}
+              onClick={() => handleAddToCart(product)}
+              variant="outline-primary"
+            >
+              <FaPlus />
+            </Button>
+          </div>
+
           <Button
             data-testid={`remove-button-${product.id}`}
             onClick={() => handleRemoveFromBasket(product)}
